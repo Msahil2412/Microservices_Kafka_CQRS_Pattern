@@ -67,7 +67,7 @@ All endpoints are accessible via the API Gateway (default port: `8084`).
    cd bank-account/account.cmd && mvn spring-boot:run
    cd bank-account/account.query && mvn spring-boot:run
    cd apisgatewayconfig && mvn spring-boot:run
-   # (Optional) cd logging-microservice && mvn spring-boot:run
+   cd records && mvn spring-boot:run
    ```
 4. **Access APIs via Gateway:**
    - Example: `http://localhost:8084/api/v1/openBankAccount` // 8084 port is default for all APIs.
@@ -80,9 +80,13 @@ All endpoints are accessible via the API Gateway (default port: `8084`).
   
 ## Docker Commands
 
-- **Use below commands for phpMyadmin**
+- **Use below commands forMysql, phpMyadmin and mongo-container**
 
 docker run -it -d --name mysql-container -p 3307:3307 --network techbankNet -e MYSQL_ROOT_PASSWORD=root --restart always -v mysql_data_container:/var/lib/mysql mysql:latest
+
+docker run -d --name phpmyadmin-container -p 8087:80 --network techbankNet -e PMA_HOST=mysql-container --restart always phpmyadmin/phpmyadmin:latest
+
+docker run -it -d --name mongo-container -p 27017:27017 --network techbankNet --restart always -v mongodb_data_container:/data/db mongo:latest
 
 ## Setup for APIs
 - Execute Gateway project for the api gateway.

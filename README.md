@@ -84,7 +84,7 @@ All endpoints are accessible via the API Gateway (default port: `8084`).
 
 docker run -it -d --name mysql-container -p 3307:3307 --network techbankNet -e MYSQL_ROOT_PASSWORD=root --restart always -v mysql_data_container:/var/lib/mysql mysql:latest
 
-docker run -d --name phpmyadmin-container -p 8087:80 --network techbankNet -e PMA_HOST=mysql-container --restart always phpmyadmin/phpmyadmin:latest
+docker run -d --name phpmyadmin-container -p 8087:80 --network techbankNet -e PMA_HOST=mysql-container --restart always phpmyadmin:latest
 
 docker run -it -d --name mongo-container -p 27017:27017 --network techbankNet --restart always -v mongodb_data_container:/data/db mongo:latest
 

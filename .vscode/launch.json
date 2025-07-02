@@ -1,0 +1,25 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-CommandApplication<account.cmd>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.techbank.account.cmd.CommandApplication",
+            "projectName": "account.cmd",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env",
+            "vmArgs": " -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=59322 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dspring.jmx.enabled=true -Djava.rmi.server.hostname=localhost -Dspring.application.admin.enabled=true -Dspring.boot.project.name=account.cmd"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-QueryApplication<account.query>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.techbank.account.query.QueryApplication",
+            "projectName": "account.query",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

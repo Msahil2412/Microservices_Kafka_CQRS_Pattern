@@ -1,0 +1,29 @@
+server:
+  port: 5003
+
+spring:
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: bankRecords
+  kafka:
+    listener:
+      ack-mode: MANUAL_IMMEDIATE
+    consumer:
+      bootstrap-servers: localhost:9092
+      group-id: bankaccConsumer
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: '*'
+            type:
+              mapping: |
+                com.techbank.account.common.events.AccountClosedEvent:com.bankrecords.records.Events.AccountClosedEvent,
+                com.techbank.account.common.events.AccountOpenedEvent:com.bankrecords.records.Events.AccountOpenedEvent,
+                com.techbank.account.common.events.FundsDepositedEvent:com.bankrecords.records.Events.FundsDepositedEvent,
+                com.techbank.account.common.events.FundsWithdrawnEvent:com.bankrecords.records.Events.FundsWithdrawnEvent

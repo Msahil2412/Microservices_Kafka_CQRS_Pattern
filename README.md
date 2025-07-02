@@ -7,6 +7,7 @@ This repository implements a **bank account management system** using **CQRS (Co
 - **CQRS/ES**: Separates write (command) and read (query) responsibilities, using event sourcing for state changes.
 - **Kafka**: Used for event publishing and inter-service communication.
 - **MongoDB**: Used for event and state persistence.
+- **MySQL**: Used for bank details storage.
 - **Spring Cloud Gateway**: Serves as the API gateway, routing requests to backend services.
 
 ## Microservices
@@ -51,10 +52,11 @@ All endpoints are accessible via the API Gateway (default port: `8084`).
 - Maven 3.8+
 - MongoDB
 - Kafka
+- MySQL 8.0
 
 ### Build & Run
 
-1. **Start MongoDB and Kafka** (ensure both are running on their default ports).
+1. **Start MongoDB, MySQL, ZooKeeper and Kafka** (ensure all are running on their default ports).
 2. **Build all projects:**
    ```sh
    mvn clean install
@@ -68,12 +70,23 @@ All endpoints are accessible via the API Gateway (default port: `8084`).
    # (Optional) cd logging-microservice && mvn spring-boot:run
    ```
 4. **Access APIs via Gateway:**
-   - Example: `http://localhost:8084/api/v1/openBankAccount`
+   - Example: `http://localhost:8084/api/v1/openBankAccount` // 8084 port is default for all APIs.
 
 ## Configuration
 
 - **Kafka, MongoDB, and service ports** are configured in each service's `application.yml`.
 - **Gateway routes** are defined in `apisgatewayconfig/src/main/resources/application.yml`.
+- **phpMyAdmin routes** also install phpMyAdmin for SQL Data virtualization.
+  
+## Docker Commands
+
+- **Use below commands for phpMyadmin**
+
+docker run -it -d --name mysql-container -p 3307:3307 --network techbankNet -e MYSQL_ROOT_PASSWORD=root --restart always -v mysql_data_container:/var/lib/mysql mysql:latest
+
+## Setup for APIs
+- Execute Gateway project for the api gateway.
+- Execute account.cmd and account.querry projects and records.
 
 ## Extending the System
 - Add new events and handlers in `account.common` and propagate to other services.

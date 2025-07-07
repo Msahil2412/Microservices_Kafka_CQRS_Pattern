@@ -1,0 +1,33 @@
+spring:
+  profiles:
+    active: k8s
+
+  kafka:
+    bootstrap-servers: host.docker.internal:9092
+    consumer:
+      group-id: bankaccConsumer
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: '*'
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+  data:
+    mongodb:
+      host: host.docker.internal
+      port: 27017
+      database: bankaccount
+
+  datasource:
+    url: jdbc:mysql://host.docker.internal:3306/bankAccount?createDatabaseIfNotExist=true
+    username: root
+    password: root
+
+server:
+  port: 8080

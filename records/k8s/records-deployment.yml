@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: records
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: records
+  template:
+    metadata:
+      labels:
+        app: records
+    spec:
+      containers:
+        - name: records
+          image: records:latest
+          ports:
+            - containerPort: 8082
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: k8s
+            - name: SPRING_KAFKA_BOOTSTRAP_SERVERS
+              value: docker-kafka-1:9092
+            - name: SPRING_DATA_MONGODB_HOST
+              value: mongo-container
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: records
+spec:
+  selector:
+    app: records
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8082
+  type: ClusterIP

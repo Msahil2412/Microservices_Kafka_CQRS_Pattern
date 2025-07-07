@@ -7,15 +7,17 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: update
+
   datasource:
-    url: jdbc:mysql://localhost:3307/bankAccount?createDatabaseIfNotExist=true
+    url: jdbc:mysql://mysql-container:3306/bankAccount?createDatabaseIfNotExist=true
     username: root
     password: root
+
   kafka:
     listener:
       ack-mode: MANUAL_IMMEDIATE
     consumer:
-      bootstrap-servers: localhost:9092
+      bootstrap-servers: docker-kafka-1:9092
       group-id: bankaccConsumer
       auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
@@ -25,3 +27,7 @@ spring:
           json:
             trusted:
               packages: '*'
+  autoconfigure:
+    exclude: 
+      - org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration
+      - org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfiguration

@@ -1,7 +1,5 @@
 package com.bankrecords.records.Consumers;
 
-
-
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +13,6 @@ import com.bankrecords.records.infrastructure.BankRecordsConsume;
 
 @Service
 public class TopicLoggingConsumer {
-
     @Autowired
     private BankRecordsConsume topicLogRepository;
 

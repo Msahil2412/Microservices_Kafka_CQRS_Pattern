@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: account-cmd
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: account-cmd
+  template:
+    metadata:
+      labels:
+        app: account-cmd
+    spec:
+      containers:
+        - name: account-cmd
+          image: account-cmd:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: k8s
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: account-cmd
+spec:
+  selector:
+    app: account-cmd
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+  type: ClusterIP
